@@ -1,0 +1,52 @@
+students = []
+marks = []
+boundaries = []
+grades = []
+sortedStudents = []
+sortedMarks = []
+sortedGrades = []
+student = " "
+mark = 0
+totalMarks = 0
+default = ""
+bigIndex = 0
+percentage = 0
+grade = 0
+while student != "":
+    student = input("Enter the name of a student: ")
+    if student != "":
+        mark = int(input(f"Enter the marks of {student}: "))
+        students.append(student)
+        marks.append(mark)
+totalMarks = int(input("How much marks was the test totally out of: "))
+
+default = input("Do you want to use the default grade boundaries (y/n): ").lower()
+if default == "n":
+    for i in range (9,0,-1):
+        percent = int(input(f"Enter the percentage required to get a grade {i} (only numbers): "))
+        boundaries.append(percent)
+else:
+    boundaries = [90,80,70,60,50,40,30,20,10]
+
+for i in range(len(students)):
+    percentage = marks[i] / totalMarks * 100
+    grade = 0
+    for j in range(len(boundaries)):
+        if percentage >= boundaries[j] and grade == 0:
+            grade = 9-j
+    grades.append(grade)
+
+for i in range(len(students)):
+    bigIndex = 0
+    for j in range(len(students)):
+        if marks[j] > marks[bigIndex]:
+            bigIndex = j
+    sortedStudents.append(students[bigIndex])
+    sortedMarks.append(marks[bigIndex])
+    sortedGrades.append(grades[bigIndex])
+    students.remove(students[bigIndex])
+    marks.remove(marks[bigIndex])
+    grades.remove(grades[bigIndex])
+
+for i in range(len(sortedStudents)):
+    print(i+1,"-",sortedStudents[i],"with a grade",sortedGrades[i],"and",str(sortedMarks[i])+"/"+str(totalMarks))
