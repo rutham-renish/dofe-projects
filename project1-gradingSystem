@@ -5,6 +5,7 @@ grades = []
 sortedStudents = []
 sortedMarks = []
 sortedGrades = []
+error = True
 student = " "
 mark = 0
 totalMarks = 0
@@ -18,7 +19,14 @@ while student != "":
         mark = int(input(f"Enter the marks of {student}: "))
         students.append(student)
         marks.append(mark)
-totalMarks = int(input("How much marks was the test totally out of: "))
+
+# EDIT: Exception Handling
+while error:
+    try: # Try runs the part of the code that could have a potential error and does not break the entire code (outside the exception handling block)
+        totalMarks = int(input("How much marks was the test totally out of: ")) # Potential error where the user can give a data type other than integer
+        error = False
+    except ValueError: # Except checks if the error is the same specified (ValueError in this case) and gives a result
+        print("Please enter a number, any other characters are not allowed")
 
 default = input("Do you want to use the default grade boundaries (y/n): ").lower()
 if default == "n":
